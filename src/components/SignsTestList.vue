@@ -79,6 +79,7 @@ const startTimer = () => {
           title: 'Vaqt tugadi',
           message: `${props.data.countTimer} daqiqa o‘tdi!`,
           ok: 'Yopish',
+          persistent: true,
         }).onOk(() => {
           audio?.pause()
           audio = null
@@ -148,6 +149,7 @@ const choseItem = (item) => {
         title: 'Muvafaqiatli yakunlandi',
         message: 'Tabrik',
         ok: 'Yopish',
+        persistent: true,
       }).onOk(() => {
         audio?.pause()
         audio = null
@@ -171,6 +173,7 @@ const choseItem = (item) => {
         title: 'Vaqt tugadi',
         message: "5 ta xatolikga yo'lqo'ydingiz!",
         ok: 'Yopish',
+        persistent: true,
       }).onOk(() => {
         audio?.pause()
         audio = null

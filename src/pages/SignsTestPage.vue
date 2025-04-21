@@ -16,6 +16,7 @@ import CategoryList from '../components/CategoryList.vue'
 import warningSigns from '../db/roadSigns/warningSigns'
 import privilegeSigns from '../db/roadSigns/privilegeSigns'
 import categoriesList from '../db/categories/cateegoriesList'
+import prohibitionSigns from '../db/roadSigns/prohibitionSigns'
 const data = ref({
   category_id: null,
   data: null,
@@ -42,6 +43,13 @@ const nextPage = (page) => {
         data.value = {
           category_id: page.category_id,
           data: privilegeSigns.data,
+          countSigns: page.countSigns,
+          countTimer: page.countTimer,
+        }
+      } else if (page.category_id === 3) {
+        data.value = {
+          category_id: page.category_id,
+          data: prohibitionSigns.data,
           countSigns: page.countSigns,
           countTimer: page.countTimer,
         }

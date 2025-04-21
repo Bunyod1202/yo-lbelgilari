@@ -18,5 +18,14 @@ export default {
       },
       img: 'https://boosimgproduct.netlify.app/signs/imtiyoz/1.png',
     },
+    {
+      id: 3,
+      name: {
+        uz: 'Taqiqlovchi belgilar',
+        ru: 'Знаки запрещения',
+        kiril: 'Тақиқловчи белгилар',
+      },
+      img: 'https://boosimgproduct.netlify.app/signs/taqiqlovchi/1.png',
+    },
   ],
 }

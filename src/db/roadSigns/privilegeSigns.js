@@ -38,7 +38,7 @@ export default {
       name: {
         uz: "2.3.2. ikkinchi darajali yo'l bilan tutashuv o’ngdan",
         ru: '2.3.2. Примыкание второстепенной дороги справа',
-        kiril: '2.3.2. туташув ўнгдан',
+        kiril: '2.3.2. Иккинчи даражали йўл билан туташув ўнгдан',
       },
       img: 'https://boosimgproduct.netlify.app/signs/imtiyoz/4.png',
       category_id: 2,
@@ -49,7 +49,7 @@ export default {
       name: {
         uz: "2.3.3. ikkinchi darajali yo'l bilan tutashuv chapdan",
         ru: '2.3.3. Примыкание второстепенной дороги слево',
-        kiril: '2.3.3. туташув чапдан',
+        kiril: '2.3.3. Иккинчи даражали йўл билан туташув чапдан',
       },
       img: 'https://boosimgproduct.netlify.app/signs/imtiyoz/5.png',
       category_id: 2,
