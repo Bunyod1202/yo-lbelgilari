@@ -222,6 +222,7 @@ const sendData = () => {
   max-width: 1000px;
   margin: 30px auto;
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 .card {
