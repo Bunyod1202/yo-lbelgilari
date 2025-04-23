@@ -27,5 +27,14 @@ export default {
       },
       img: 'https://boosimgproduct.netlify.app/signs/taqiqlovchi/1.png',
     },
+    {
+      id: 8,
+      name: {
+        uz: 'Aralash belgilar',
+        ru: 'Смешанные знаки',
+        kiril: 'Аралаш белгилар',
+      },
+      img: 'https://boosimgproduct.netlify.app/signs/taqiqlovchi/1.png',
+    },
   ],
 }

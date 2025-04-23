@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <component
-      :is="component"
-      :categories="categoriesList.data"
-      :data="data"
-      :nextPage="nextPage"
-    />
+  <div class="page-signs-test">
+    <div class="container">
+      <component
+        :is="component"
+        :categories="categoriesList.data"
+        :data="data"
+        :nextPage="nextPage"
+      />
+    </div>
   </div>
 </template>
 
@@ -23,6 +25,14 @@ const data = ref({
   countSigns: null,
   countTimer: null,
 })
+function getRandomShuffledItems(array, count = 10) {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled.slice(0, count)
+}
 
 const component = ref(CategoryList)
 const nextPage = (page) => {
@@ -53,6 +63,16 @@ const nextPage = (page) => {
           countSigns: page.countSigns,
           countTimer: page.countTimer,
         }
+      } else if (page.category_id === 8) {
+        data.value = {
+          category_id: page.category_id,
+          data: getRandomShuffledItems(
+            [...privilegeSigns.data, ...warningSigns.data, ...prohibitionSigns.data],
+            page.countSigns,
+          ),
+          countSigns: page.countSigns,
+          countTimer: page.countTimer,
+        }
       }
       component.value = SignsTestList
       console.log('nextPage', page.nextPage)
@@ -60,5 +80,33 @@ const nextPage = (page) => {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
+<style scoped>
+.page-signs-test {
+  overflow: hidden;
+}
+</style>
+<style lang="scss" scoped>
+.page-signs-test {
+  background-color: #000;
+  width: 100%;
+  padding: 20px;
+  background-image: url('/bg/bg-auto.jpg');
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
+  height: 100%;
+}
+@media (max-width: 1000px) {
+  .page-signs-test {
+    background-image: url('/bg/bg-auto-rotate.jpg');
+    background-size: cover;
+    overflow: auto;
+  }
+}
+</style>

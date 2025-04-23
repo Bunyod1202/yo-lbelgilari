@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card-wrapper">
     <div class="card-list">
       <div
         class="card"
@@ -11,6 +11,15 @@
         <p>{{ category.name.uz }}</p>
       </div>
     </div>
+    <!-- <iframe
+      width="560"
+      height="315"
+      src="https://fabulous-croquembouche-890ee8.netlify.app/"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe> -->
     <q-dialog v-model="confirm" persistent>
       <q-card>
         <q-card-section class="row items-center q-pb-none">
@@ -127,7 +136,7 @@ const choseCategory = (category) => {
   console.log(category)
   confirm.value = true
   categoryId.value = category.id
-  if (category.id === 1) {
+  if (category.id === 1 || category.id === 3 || category.id === 8) {
     options.value = [
       {
         label: 'belgilar soni 15ta',
@@ -217,28 +226,104 @@ const sendData = () => {
 .timer-select {
   margin-top: 20px;
 }
-.card-list {
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
   width: 100%;
-  max-width: 1000px;
-  margin: 30px auto;
+}
+.card-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 .card {
+  // transform: perspective(800px) rotateY(25deg) scale(0.9) rotateX(10deg);
+  transform: scale(0.9);
+  filter: blur(2px);
+  opacity: 0.5;
+  transition: 0.6s ease all;
+  &:nth-child(1),
+  &:nth-child(2) {
+    transform: perspective(800px) rotateY(25deg) scale(0.9) rotateX(10deg);
+    &:hover {
+      transform: perspective(800px) rotateY(-15deg) translateY(-50px) rotateX(10deg) scale(1);
+    }
+  }
+  &:nth-child(3),
+  &:nth-child(4) {
+    transform: perspective(800px) rotateY(-25deg) scale(0.9) rotateX(10deg);
+    &:hover {
+      transform: perspective(800px) rotateY(15deg) translateY(-50px) rotateX(10deg) scale(1);
+    }
+  }
+  &:hover {
+    transform: scale(1);
+
+    // transform: perspective(800px) rotateY(-15deg) translateY(-50px) rotateX(10deg) scale(1);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+.card {
+  cursor: pointer;
   width: 200px;
   height: 250px;
   padding: 15px;
+  background-color: #fff;
   border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 0 10px #000;
+
+  // box-shadow:
+  //   rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+  //   rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+  //   rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  // transition: all 0.7s linear;
+  // &:hover {
+  //   transition: all 0.7s linear;
+  //   background-color: #c52330;
+  //   color: #fff;
+  //   box-shadow:
+  //     rgb(204, 219, 232) 3px 3px 6px 0px inset,
+  //     rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+
+  // }
   p {
     text-align: center;
     font-size: 18px;
     font-weight: 500;
   }
   img {
+    border-radius: 15px;
+
     width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .card {
+    width: 110px;
+    height: 160px;
+    padding: 5px;
+    filter: none;
+    opacity: 1;
+    transform: perspective(0px) rotateY(0deg) scale(0.9) rotateX(0deg) !important;
+    &:hover {
+      transform: perspective(0px) rotateY(0deg) translateY(0px) rotateX(0deg) scale(1) !important;
+    }
+    p {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
   }
 }
 </style>

@@ -11,19 +11,19 @@
           class="card"
           @click="choseItem(item)"
           :class="{
-            incorrect: itemStates[item.id].incorrect,
-            correct: itemStates[item.id].correct,
+            incorrect: itemStates[item.id + `-${item.category_id}`].incorrect,
+            correct: itemStates[item.id + `-${item.category_id}`].correct,
           }"
         >
           <img
             class="status-correct"
-            v-if="itemStates[item.id].correct"
+            v-if="itemStates[item.id + `-${item.category_id}`].correct"
             src="/status/correct.png"
             alt=""
           />
           <img
             class="status-incorrect"
-            v-if="itemStates[item.id].incorrect"
+            v-if="itemStates[item.id + `-${item.category_id}`].incorrect"
             src="/status/incorrect.png"
             alt=""
           />
@@ -83,6 +83,7 @@ const startTimer = () => {
         }).onOk(() => {
           audio?.pause()
           audio = null
+
           props.nextPage({
             nextPage: 0,
             category_id: props.data.category_id,
@@ -104,7 +105,7 @@ const stopTimer = () => {
 // }
 const itemStates = computed(() => {
   return randomTen.reduce((acc, item) => {
-    acc[item.id] = {
+    acc[item.id + `-${item.category_id}`] = {
       correct: correctSigns.value.includes(item),
       incorrect: incorrectSigns.value.includes(item),
     }
@@ -116,7 +117,6 @@ const correctSigns = ref([])
 const incorrectSigns = ref([])
 function getRandomShuffledItems(array, count = 10) {
   // Massivni nusxa olish va aralashtirish (Fisher-Yates Shuffle)
-  console.log(props.data)
   const shuffled = [...array]
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -133,13 +133,18 @@ if (randomSigns.value.length < props.data.countSigns) {
 }
 const randomTenName = ref(getRandomShuffledItems(randomSigns.value, 1))
 const choseItem = (item) => {
-  startTimer()
-
-  if (item.id === randomTenName.value[0]?.id) {
+  // startTimer()
+  console.log('Dsdsds', item.category_name === randomTenName.value[0].category_name)
+  console.log('ssss', item.id === randomTenName.value[0].id)
+  if (
+    item.id === randomTenName.value[0]?.id &&
+    item.category_name === randomTenName.value[0].category_name
+  ) {
     randomSigns.value.splice(randomSigns.value.indexOf(item), 1)
     randomTenName.value.splice(randomTenName.value.indexOf(item), 1)
     randomTenName.value = getRandomShuffledItems(randomSigns.value, 1)
     if (!correctSigns.value.includes(item)) {
+      console.log('correct', item)
       correctSigns.value.push(item)
       playSound('/sounds/new-notification-7-210334.mp3')
     }
@@ -185,7 +190,6 @@ const choseItem = (item) => {
       })
     }
   }
-  console.log(correctSigns.value, incorrectSigns.value)
 }
 
 // Misol uchun:
@@ -197,11 +201,37 @@ const choseItem = (item) => {
   text-align: center;
   font-size: 20px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sign-name {
+  width: auto;
+  height: auto;
+  padding: 20px;
+  background-color: #ffffff72;
+  color: #fff;
+  border-radius: 15px;
+  margin: 0 15px;
+}
+.ball {
+  padding: 20px;
+  background-color: #ffffff72;
+  color: #fff;
+  border-radius: 15px;
+}
+.timer {
+  padding: 20px;
+  background-color: #ffffff72;
+  color: #fff;
+  border-radius: 15px;
 }
 .card-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
+  padding: 20px;
 }
 
 .card-item {
@@ -214,6 +244,7 @@ const choseItem = (item) => {
 }
 
 .card {
+  cursor: pointer;
   width: 100%;
   height: 100%;
   display: flex;
@@ -222,16 +253,25 @@ const choseItem = (item) => {
   justify-content: center;
   flex-direction: column;
   border-radius: 15px;
-  box-shadow: 0 0 10px #444444;
+  transition: all 0.3s ease;
+  &:hover {
+    scale: 1.05;
+    box-shadow:
+      rgba(255, 255, 255, 0.4) 0px 2px 4px,
+      rgba(255, 255, 255, 0.3) 0px 7px 13px -3px,
+      rgba(255, 255, 255, 0.2) 0px -3px 0px inset;
+  }
   &.incorrect {
     box-shadow: 0 0 10px #ff4444;
     transform: scale(0.95);
     transition: all 0.3s ease;
+    scale: 0.5;
   }
   &.correct {
     box-shadow: 0 0 10px #44ff44;
     transform: scale(0.95);
     transition: all 0.3s ease;
+    scale: 0.5;
   }
   img {
     border-radius: 15px;
@@ -244,6 +284,34 @@ const choseItem = (item) => {
     position: absolute;
     width: 100%;
     height: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .quasion-sign {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    // gap: 10px;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  // .card-item {
+  //   width: 200px;
+  //   height: 200px;
+  // }
+}
+@media (max-width: 360px) {
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .card-item {
+    width: 60px;
+    height: 60px;
   }
 }
 </style>
